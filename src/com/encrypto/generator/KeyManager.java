@@ -1,6 +1,6 @@
-package com.entropia.generator;
+package com.encrypto.generator;
 
-import com.entropia.ALGORITHM;
+import com.encrypto.ALGORITHM;
 
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;

@@ -1,7 +1,7 @@
-package com.entropia.encypt;
+package com.encrypto.encypt;
 
-import com.entropia.ALGORITHM;
-import com.entropia.generator.KeyManager;
+import com.encrypto.ALGORITHM;
+import com.encrypto.generator.KeyManager;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -20,49 +20,49 @@ import java.security.NoSuchAlgorithmException;
  * @description encrypt and decrypt algorithms.
  */
 
-public class EncryptManager {
+public class DecryptManager {
 
     /**
-     * encrypt content
-     * @param content content
+     * decrypt content
+     * @param encryptedContent encrypted content
      * @param password password
-     * @return encrypted content
+     * @return decrypted content
      */
-    public static String encrypt(final String content, final String password) {
-        return encrypt(content, password, ALGORITHM.AES);
+    public static String decrypt(final String encryptedContent, final String password) {
+        return decrypt(encryptedContent, password, ALGORITHM.AES);
     }
 
     /**
-     * encrypt content
-     * @param content content
+     * decrypt content
+     * @param encryptedContent encrypted content
      * @param password password
-     * @param algorithm encrypt algorithm: AES, DES
-     * @return encrypted content
+     * @param algorithm decrypt algorithm: AES, DES
+     * @return decrypted content
      */
-    public static String encrypt(final String content, final String password, final ALGORITHM algorithm) {
-        return encrypt(content, password, null, algorithm);
+    public static String decrypt(final String encryptedContent, final String password, final ALGORITHM algorithm) {
+        return decrypt(encryptedContent, password, null, algorithm);
     }
 
     /**
-     * encrypt content
-     * @param content content
+     * decrypt content
+     * @param encryptedContent encrypted content
      * @param password password
      * @param iv initialization vector
-     * @param algorithm encrypt algorithm: AES, DES
-     * @return encrypted content
+     * @param algorithm decrypt algorithm: AES, DES
+     * @return decrypted content
      */
-    public static String encrypt(final String content, final String password, final byte[] iv, final ALGORITHM algorithm) {
+    public static String decrypt(final String encryptedContent, final String password, final byte[] iv, final ALGORITHM algorithm) {
         try {
             final SecretKeySpec keySpec = KeyManager.generateKey(password, algorithm);
             Cipher cipher = Cipher.getInstance(algorithm.toString());
             if (iv == null) {
-                cipher.init(Cipher.ENCRYPT_MODE, keySpec);
+                cipher.init(Cipher.DECRYPT_MODE, keySpec);
             } else {
                 IvParameterSpec ivSpec = new IvParameterSpec(iv);
-                cipher.init(Cipher.ENCRYPT_MODE, keySpec, ivSpec);
+                cipher.init(Cipher.DECRYPT_MODE, keySpec, ivSpec);
             }
-            byte[] result = cipher.doFinal(content.getBytes(ALGORITHM.CHARSET));
-            return KeyManager.byte2Hex(result);
+            byte[] result = cipher.doFinal(KeyManager.hex2byte(encryptedContent));
+            return new String(result, ALGORITHM.CHARSET);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         } catch (NoSuchPaddingException e) {
@@ -80,4 +80,5 @@ public class EncryptManager {
         }
         return null;
     }
+
 }

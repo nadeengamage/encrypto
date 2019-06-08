@@ -1,8 +1,8 @@
-package com.entropia;
+package com.encrypto;
 
-import com.entropia.encypt.DecryptManager;
-import com.entropia.encypt.EncryptManager;
-import com.entropia.generator.KeyManager;
+import com.encrypto.encypt.DecryptManager;
+import com.encrypto.encypt.EncryptManager;
+import com.encrypto.generator.KeyManager;
 
 /**
  * @author Nadeen Gamage

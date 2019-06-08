@@ -1,4 +1,4 @@
-package com.entropia;
+package com.encrypto;
 
 /**
  * @author Nadeen Gamage
